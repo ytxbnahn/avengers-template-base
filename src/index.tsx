@@ -1,14 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "mobx-react";
+import { Router } from "react-router-dom";
+import { createBrowserHistory } from "history";
+
+import RouterMap from "../src/router/index"
+import * as serviceWorker from "./serviceWorker";
+import { DemoStore } from "./stores/index";
+import "./index.css";
+
+const storeWrapper = {
+  demo: new DemoStore(),
+};
+
+const history = createBrowserHistory();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider {...storeWrapper}>
+      <Router history={history}>
+        <RouterMap/>
+      </Router>
+    </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
